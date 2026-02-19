@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu et Tic Tac Toe</title>
+    <title>Hub des Mini-Jeux</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,7 +19,6 @@
             margin-bottom: 30px;
         }
 
-        /* Styles du Menu */
         #menu {
             display: flex;
             flex-direction: column;
@@ -49,188 +48,17 @@
         .menu-btn.primary:hover {
             background-color: #0056b3;
         }
-
-        /* Styles du Jeu (caché par défaut) */
-        #game-view {
-            display: none; /* Caché au chargement */
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .board {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
-            gap: 5px;
-            margin-bottom: 20px;
-        }
-
-        .cell {
-            background-color: #fff;
-            border: 2px solid #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 3rem;
-            font-weight: bold;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .cell:hover {
-            background-color: #e9e9e9;
-        }
-
-        .status {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-        }
-
-        .action-btn {
-            padding: 10px 20px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #restartBtn {
-            background-color: #28a745;
-            color: white;
-        }
-
-        #backBtn {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .action-btn:hover {
-            opacity: 0.8;
-        }
     </style>
 </head>
 <body>
 
 <div id="menu">
     <h1 style="text-align: center;">Menu Principal</h1>
-    <button class="menu-btn primary" id="btn-tictactoe">1. Jouer au Tic Tac Toe</button>
+    <button class="menu-btn primary" onclick="window.location.href='tic.html'">1. Jouer au Tic Tac Toe</button>
     <button class="menu-btn" onclick="alert('Jeu 2 en construction !')">2. Jeu Mystère</button>
     <button class="menu-btn" onclick="alert('Jeu 3 en construction !')">3. Prochainement</button>
     <button class="menu-btn" onclick="alert('Options indisponibles')">4. Réglages</button>
 </div>
 
-<div id="game-view">
-    <h1>Tic Tac Toe</h1>
-    <div class="status" id="status">C'est au tour de X</div>
-
-    <div class="board" id="board">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-    </div>
-
-    <div class="controls">
-        <button class="action-btn" id="backBtn">Retour au Menu</button>
-        <button class="action-btn" id="restartBtn">Rejouer</button>
-    </div>
-</div>
-
-<script>
-        // --- LOGIQUE DU MENU ---
-        const menuView = document.getElementById('menu');
-        const gameView = document.getElementById('game-view');
-        const btnTicTacToe = document.getElementById('btn-tictactoe');
-        const btnBack = document.getElementById('backBtn');
-
-        btnTicTacToe.addEventListener('click', () => {
-            menuView.style.display = 'none';
-            gameView.style.display = 'flex';
-            restartGame(); // On remet le jeu à zéro en l'ouvrant
-        });
-
-        btnBack.addEventListener('click', () => {
-            gameView.style.display = 'none';
-            menuView.style.display = 'flex';
-        });
-
-
-        // --- LOGIQUE DU TIC TAC TOE ---
-        const cells = document.querySelectorAll('.cell');
-        const statusText = document.getElementById('status');
-        const restartBtn = document.getElementById('restartBtn');
-
-        let board = ["", "", "", "", "", "", "", "", ""];
-        let currentPlayer = "X";
-        let gameActive = true;
-
-        const winningConditions = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],
-            [0, 4, 8], [2, 4, 6]
-        ];
-
-        function handleCellClick(event) {
-            const cell = event.target;
-            const cellIndex = cell.getAttribute('data-index');
-
-            if (board[cellIndex] !== "" || !gameActive) return;
-
-            board[cellIndex] = currentPlayer;
-            cell.innerText = currentPlayer;
-            cell.style.color = currentPlayer === "X" ? "#d9534f" : "#5cb85c";
-
-            checkWinner();
-        }
-
-        function checkWinner() {
-            let roundWon = false;
-
-            for (let i = 0; i < winningConditions.length; i++) {
-                const [a, b, c] = winningConditions[i];
-                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                    roundWon = true;
-                    break;
-                }
-            }
-
-            if (roundWon) {
-                statusText.innerText = `Le joueur ${currentPlayer} a gagné !`;
-                gameActive = false;
-                return;
-            }
-
-            if (!board.includes("")) {
-                statusText.innerText = "Match nul !";
-                gameActive = false;
-                return;
-            }
-
-            currentPlayer = currentPlayer === "X" ? "O" : "X";
-            statusText.innerText = `C'est au tour de ${currentPlayer}`;
-        }
-
-        function restartGame() {
-            board = ["", "", "", "", "", "", "", "", ""];
-            currentPlayer = "X";
-            gameActive = true;
-            statusText.innerText = `C'est au tour de ${currentPlayer}`;
-            cells.forEach(cell => cell.innerText = "");
-        }
-
-        cells.forEach(cell => cell.addEventListener('click', handleCellClick));
-        restartBtn.addEventListener('click', restartGame);
-    </script>
 </body>
 </html>
