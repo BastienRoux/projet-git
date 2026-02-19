@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jeu de devinette de nombres</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<style>
+    body {
+        background-color: #e0e0e0;
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+        color: #333;
+    }
+
+    #form {
+        display: flex;
+        justify-content: center;
+    }
+
+    #number {
+        width: 100px;
+        margin-right: 10px;
+        font-size: 16px;
+        text-align: center;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 10px;
+        border: none;
+        background-color: #333;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+<body>
+<h1>Jeu de devinette de nombres entre 1 et 20</h1>
+<p id="message"></p>
+<form id="form">
+    <input type="number" id="number">
+    <button type="submit">Deviner</button>
+</form>
+<script type="module" src="script.js"></script>
+</body>
+</html>
