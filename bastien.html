@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadeau Surprise ! 🎁</title>
+    <style>
+        /* Style général de la page */
+        body {
+            background-color: #121212;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Classe pour cacher les éléments */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Style du faux contenu d'appât */
+        #fake-content {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        #fake-content h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        #fake-content p {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+
+        /* Le fameux bouton piège */
+        button {
+            background: linear-gradient(45deg, #ff4757, #ff6b81);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            transition: all 0.2s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.6);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Conteneur de la punition (le rickroll) */
+        #rick-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        h1 {
+            font-size: 4vw;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: rainbowText 2s infinite linear;
+        }
+
+        img.gif {
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+            max-width: 90vw;
+            max-height: 60vh;
+            object-fit: contain;
+            border: 5px solid white;
+        }
+
+        /* Animations fun */
+        @keyframes rainbowText {
+            0% { color: #ff4757; text-shadow: 0 0 15px #ff4757; }
+            25% { color: #ffa502; text-shadow: 0 0 15px #ffa502; }
+            50% { color: #2ed573; text-shadow: 0 0 15px #2ed573; }
+            75% { color: #1e90ff; text-shadow: 0 0 15px #1e90ff; }
+            100% { color: #ff4757; text-shadow: 0 0 15px #ff4757; }
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- L'APPÂT -->
+    <div id="fake-content">
+        <h2>🔒 Contenu Exclusif</h2>
+        <p>Tu es sur le point de débloquer ton cadeau secret...</p>
+        <button id="start-btn">Ouvrir le cadeau 🎁</button>
+    </div>
+
+    <!-- LE PIÈGE -->
+    <div id="rick-container" class="hidden">
+        <h1 id="rick-text">Tu t'es fait Rickroll !! 🕺</h1>
+        <!-- URL d'un GIF de Rick Astley de très bonne qualité -->
+        <img src="https://media.tenor.com/x8v1oNUOmg4AAAAd/rickroll-roll.gif" alt="Rickroll" class="gif">
+        
+        <!-- C'est ici qu'on va injecter l'audio caché via YouTube -->
+        <div id="audio-container"></div>
+    </div>
+
+    <script>
+        // On écoute le clic sur le bouton d'appât
+        document.getElementById('start-btn').addEventListener('click', function() {
+            
+            // 1. On cache l'appât
+            document.getElementById('fake-content').classList.add('hidden');
+            
+            // 2. On affiche Rick Astley
+            document.getElementById('rick-container').classList.remove('hidden');
+
+            // 3. On injecte l'iframe YouTube invisible avec autoplay
+            // L'attribut allow="autoplay" est vital ici, et vu que l'utilisateur a cliqué, le navigateur l'autorise !
+            const audioContainer = document.getElementById('audio-container');
+            audioContainer.innerHTML = `
+                <iframe 
+                    width="0" 
+                    height="0" 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&showinfo=0&autohide=1" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media">
+                </iframe>
+            `;
+
+            // 4. Petit bonus : on fait clignoter le fond doucement pour l'ambiance disco
+            setInterval(() => {
+                const colors = ['#1a1a1a', '#2d0a15', '#0a2d1a', '#0a152d', '#2d2d0a'];
+                document.body.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            }, 800);
+            
+            // On change le titre de l'onglet pour troller jusqu'au bout
+            document.title = "NEVER GONNA GIVE YOU UP !";
+        });
+    </script>
+</body>
+</html>

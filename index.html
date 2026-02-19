@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub des Mini-Jeux</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f9;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        #menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 300px;
+        }
+
+        .menu-btn {
+            padding: 15px;
+            font-size: 1.2rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .menu-btn:hover {
+            background-color: #555;
+        }
+
+        .menu-btn.primary {
+            background-color: #007bff;
+        }
+
+        .menu-btn.primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="menu">
+    <h1 style="text-align: center;">Menu Principal</h1>
+    <button class="menu-btn primary" onclick="window.location.href='tic.html'">1. Jouer au Tic Tac Toe</button>
+    <button class="menu-btn" onclick="alert('Jeu 2 en construction !')">2. Jeu Mystère</button>
+    <button class="menu-btn primary" onclick="window.location.href='bastien.html'">3. Une petite surprise...</button>
+    <button class="menu-btn" onclick="alert('Options indisponibles')">4. Réglages</button>
+</div>
+
+</body>
+</html>
