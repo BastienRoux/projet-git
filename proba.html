@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin flip proba</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f9;
+            margin-top: 50px;
+        }
+
+        h1 { color: #333; margin-bottom: 20px; }
+
+        .status { font-size: 1.5rem; margin-bottom: 20px; color: #555; }
+        .affichage { font-size: 1.5rem; margin-bottom: 20px; color: #1463c9; }
+        .actions { display: flex; margin-bottom: 10px; }
+        .controls { display: flex; gap: 10px; }
+        .action-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #flipCoinButton { background-color: #26b8b8; color: white; }
+        #backBtn { background-color: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+
+<h1>Coin flip proba</h1>
+<div class="status" id="status">Appuyez sur "Toss" pour effectuer un lancer</div>
+
+<div class="affichage" id="affichage">1</div>
+
+
+<div class="actions">
+    <button class="action-btn" id="flipCoinButton">Toss</button>
+</div>
+
+<div class="controls">
+    <button class="action-btn" id="backBtn" onclick="window.location.href='index.html'">Retour au Menu</button>
+</div>
+
+<script>
+        const flipCoinButton = document.getElementById('flipCoinButton');
+        const statusText = document.getElementById('status');
+
+        let proba = 1;
+        let value = 0;
+        let started = false;
+        const FACE = 0;
+        const PILE = 1;
+
+        //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        function handleCoinFlipButtonClick(event) {
+            let tossValue = getRandomInt(2);
+            if(!started){
+                started = true;
+                value = tossValue;
+            }
+            if(tossValue == FACE) statusText.innerText = `Vous avez fait FACE`;
+            else if(tossValue == PILE) statusText.innerText = `Vous avez fait PILE`;
+            else statusText.innerText = `ERREUR`;
+            proba/=2;
+            if(tossValue != value){
+                statusText.innerText = statusText.innerText + `, réinitialisation de la probabilité`;
+                started = false;
+                proba = 1;
+            }
+            affichage.innerText = `${proba}`;
+        }
+
+        flipCoinButton.addEventListener('click', handleCoinFlipButtonClick)
+    </script>
+</body>
+</html>
